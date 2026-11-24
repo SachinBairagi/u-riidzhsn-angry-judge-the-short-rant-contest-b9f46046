@@ -30,6 +30,12 @@ def main() -> None:
     os.makedirs(os.path.dirname(OUTPUT_PATH), exist_ok=True)
     with open(OUTPUT_PATH, "w", encoding="utf-8", newline="") as f:
         f.write(RANT)
+    # Read back what was written and confirm it is exactly the rant:
+    # a truncated or re-encoded write would silently fail the judge.
+    with open(OUTPUT_PATH, "r", encoding="utf-8", newline="") as f:
+        written = f.read()
+    if written != RANT:
+        raise ValueError("entry.txt does not match the rant")
 
 
 if __name__ == "__main__":
